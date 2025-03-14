@@ -368,6 +368,11 @@ class Settings(private val appContext: Context) : PreferencesHolder {
         default = false,
     )
 
+    var forgeTabCounter by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_forge_tab_counter),
+        default = true,
+    )
+
     var installPwaOpened by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_install_pwa_opened),
         default = false,

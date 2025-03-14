@@ -33,6 +33,7 @@
     <string name="pref_key_delete_browsing_history_now" translatable="false">pref_key_delete_browsing_history_now</string>
     <string name="pref_key_delete_cookies_now" translatable="false">pref_key_delete_cookies_now</string>
     <string name="pref_key_delete_caches_now" translatable="false">pref_key_delete_caches_now</string>
+    <string name="pref_key_forge_tab_counter" translatable="false">pref_key_forge_tab_counter</string>
     <string name="pref_key_delete_permissions_now" translatable="false">pref_key_delete_permissions_now</string>
     <string name="pref_key_delete_downloads_now" translatable="false">pref_key_delete_downloads_now</string>
     <string name="pref_key_delete_browsing_data_on_quit_categories" translatable="false">pref_key_delete_browsing_data_on_quit_categories</string>

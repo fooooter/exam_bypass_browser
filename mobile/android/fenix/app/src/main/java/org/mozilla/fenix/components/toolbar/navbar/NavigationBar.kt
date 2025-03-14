@@ -108,8 +108,11 @@ fun BrowserNavBar(
     // DO NOT ADD ANYTHING ABOVE THIS getProfilerTime CALL!
     val profilerStartTime = components.core.engine.profiler?.getProfilerTime()
 
+    val forgeTabCounter = components.settings.forgeTabCounter
     val tabCount = browserStore.observeAsState(initialValue = 0) { browserState ->
-        if (isPrivateMode) {
+        if (forgeTabCounter) {
+            1
+        } else if (isPrivateMode) {
             browserState.privateTabs.size
         } else {
             browserState.normalTabs.size
@@ -201,8 +204,11 @@ fun HomeNavBar(
     // DO NOT ADD ANYTHING ABOVE THIS getProfilerTime CALL!
     val profilerStartTime = components.core.engine.profiler?.getProfilerTime()
 
+    val forgeTabCounter = components.settings.forgeTabCounter
     val tabCount = browserStore.observeAsState(initialValue = 0) { browserState ->
-        if (isPrivateMode) {
+        if (forgeTabCounter) {
+            1
+        } else if (isPrivateMode) {
             browserState.privateTabs.size
         } else {
             browserState.normalTabs.size

@@ -20,6 +20,7 @@ import org.mozilla.fenix.browser.browsingmode.BrowsingMode
 import org.mozilla.fenix.browser.browsingmode.BrowsingModeManager
 import org.mozilla.fenix.components.toolbar.FenixTabCounterMenu
 import org.mozilla.fenix.ext.nav
+import org.mozilla.fenix.ext.settings
 import org.mozilla.fenix.tabstray.Page
 
 /**
@@ -65,7 +66,9 @@ class TabCounterView(
      */
     fun update(browserState: BrowserState) {
         val isPrivate = browsingModeManager.mode.isPrivate
-        val tabCount = if (isPrivate) {
+        val tabCount = if (context.settings().forgeTabCounter) {
+            1
+        } else if (isPrivate) {
             browserState.privateTabs.size
         } else {
             browserState.normalTabs.size

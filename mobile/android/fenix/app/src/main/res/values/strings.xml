@@ -1162,6 +1162,12 @@
     <string name="tab_view_list">List</string>
     <!-- Option for a grid tab view -->
     <string name="tab_view_grid">Grid</string>
+
+    <!-- Title of preferences that make cheating during online exams easier -->
+    <string name="preferences_cheating">Cheating</string>
+    <!-- Option for setting the tab counter to 1 at all times -->
+    <string name="cheating_tab_counter_const">Set tab counter to 1 at all times</string>
+
     <!-- Title of preference that allows a user to auto close tabs after a specified amount of time -->
     <string name="preferences_close_tabs">Close tabs</string>
     <!-- Option for auto closing tabs that will never auto close tabs, always allows user to manually close tabs -->

@@ -22,6 +22,17 @@
 
     <androidx.preference.PreferenceCategory
         android:layout="@layout/preference_cat_style"
+        android:title="@string/preferences_cheating"
+        app:allowDividerAbove="true"
+        app:iconSpaceReserved="false">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_forge_tab_counter"
+            android:title="@string/cheating_tab_counter_const" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory
+        android:layout="@layout/preference_cat_style"
         android:title="@string/preferences_close_tabs"
         app:allowDividerAbove="true"
         app:iconSpaceReserved="false">

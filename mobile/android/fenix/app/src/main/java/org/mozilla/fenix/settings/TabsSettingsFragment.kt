@@ -23,6 +23,7 @@ import org.mozilla.fenix.utils.view.addToRadioGroup
 class TabsSettingsFragment : PreferenceFragmentCompat() {
     private lateinit var listRadioButton: RadioButtonPreference
     private lateinit var gridRadioButton: RadioButtonPreference
+    private lateinit var tabCounterConstSwitch: SwitchPreference
     private lateinit var radioManual: RadioButtonPreference
     private lateinit var radioOneDay: RadioButtonPreference
     private lateinit var radioOneWeek: RadioButtonPreference
@@ -54,6 +55,11 @@ class TabsSettingsFragment : PreferenceFragmentCompat() {
         // pref_key_tab_view_grid and look into using the native RadioGroup in the future.
         listRadioButton = requirePreference(R.string.pref_key_tab_view_list_do_not_use)
         gridRadioButton = requirePreference(R.string.pref_key_tab_view_grid)
+
+        tabCounterConstSwitch = requirePreference<SwitchPreference>(R.string.pref_key_forge_tab_counter).also {
+            it.isChecked = requireContext().settings().forgeTabCounter
+            it.onPreferenceChangeListener = SharedPreferenceUpdater()
+        }
 
         radioManual = requirePreference(R.string.pref_key_close_tabs_manually)
         radioOneMonth = requirePreference(R.string.pref_key_close_tabs_after_one_month)
