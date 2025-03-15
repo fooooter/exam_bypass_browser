@@ -207,7 +207,7 @@ private fun TabGrid(
         }
 
         itemsIndexed(
-            items = tabs.filter { !it.isHidden() },
+            items = tabs.filter { !it.isHidden() || selectedTabId.equals(it.id) },
             key = { _, tab -> tab.id },
         ) { index, tab ->
             val decayAnimationSpec: DecayAnimationSpec<Float> = rememberSplineBasedDecay()
@@ -327,7 +327,7 @@ private fun TabList(
         }
 
         itemsIndexed(
-            items = tabs.filter { !it.isHidden() },
+            items = tabs.filter { !it.isHidden() || selectedTabId.equals(it.id) },
             key = { _, tab -> tab.id },
         ) { index, tab ->
             DragItemContainer(

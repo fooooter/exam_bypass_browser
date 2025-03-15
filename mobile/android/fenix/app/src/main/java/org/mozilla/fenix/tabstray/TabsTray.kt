@@ -169,8 +169,8 @@ fun TabsTray(
         Box(modifier = Modifier.nestedScroll(rememberNestedScrollInteropConnection())) {
             TabsTrayBanner(
                 selectedPage = tabsTrayState.selectedPage,
-                normalTabCount = (tabsTrayState.normalTabs.size + tabsTrayState.inactiveTabs.size) - tabsTrayState.normalTabs.filter { it.isHidden() }.size,
-                privateTabCount = tabsTrayState.privateTabs.size - tabsTrayState.privateTabs.filter { it.isHidden() }.size,
+                normalTabCount = (tabsTrayState.normalTabs.count { !it.isHidden() } + tabsTrayState.inactiveTabs.count { !it.isHidden() }),
+                privateTabCount = tabsTrayState.privateTabs.count { !it.isHidden() },
                 syncedTabCount = syncedTabCount,
                 selectionMode = tabsTrayState.mode,
                 isInDebugMode = isInDebugMode,

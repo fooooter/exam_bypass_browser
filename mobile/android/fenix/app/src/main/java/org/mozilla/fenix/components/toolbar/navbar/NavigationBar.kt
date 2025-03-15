@@ -56,6 +56,7 @@ import org.mozilla.fenix.compose.utils.keyboardAsState
 import org.mozilla.fenix.ext.settings
 import org.mozilla.fenix.perf.MarkersFragmentLifecycleCallbacks
 import org.mozilla.fenix.search.SearchDialogFragment
+import org.mozilla.fenix.tabstray.ext.isHidden
 import org.mozilla.fenix.theme.FirefoxTheme
 import org.mozilla.fenix.theme.Theme
 import org.mozilla.fenix.theme.ThemeManager
@@ -118,9 +119,9 @@ fun BrowserNavBar(
                 1
             }
         } else if (isPrivateMode) {
-            browserState.privateTabs.size
+            browserState.privateTabs.count { !it.isHidden() }
         } else {
-            browserState.normalTabs.size
+            browserState.normalTabs.count { !it.isHidden() }
         }
     }.value
     val canGoBack by browserStore.observeAsState(initialValue = false) { it.selectedTab?.content?.canGoBack ?: false }
@@ -218,9 +219,9 @@ fun HomeNavBar(
                 1
             }
         } else if (isPrivateMode) {
-            browserState.privateTabs.size
+            browserState.privateTabs.count { !it.isHidden() }
         } else {
-            browserState.normalTabs.size
+            browserState.normalTabs.count { !it.isHidden() }
         }
     }.value
 

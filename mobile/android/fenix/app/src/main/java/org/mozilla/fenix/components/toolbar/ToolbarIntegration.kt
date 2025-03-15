@@ -33,6 +33,7 @@ import org.mozilla.fenix.components.toolbar.ui.createShareBrowserAction
 import org.mozilla.fenix.ext.components
 import org.mozilla.fenix.ext.isLargeWindow
 import org.mozilla.fenix.ext.settings
+import org.mozilla.fenix.tabstray.ext.isHidden
 import org.mozilla.fenix.theme.ThemeManager
 
 /**
@@ -204,9 +205,9 @@ class DefaultToolbarIntegration(
                 1
             }
         } else if (isPrivate) {
-            store.state.privateTabs.size
+            store.state.privateTabs.count { !it.isHidden() }
         } else {
-            store.state.normalTabs.size
+            store.state.normalTabs.count { !it.isHidden() }
         }
 
         tabCounterAction.updateCount(tabCount)

@@ -22,6 +22,7 @@ import org.mozilla.fenix.components.toolbar.FenixTabCounterMenu
 import org.mozilla.fenix.ext.nav
 import org.mozilla.fenix.ext.settings
 import org.mozilla.fenix.tabstray.Page
+import org.mozilla.fenix.tabstray.ext.isHidden
 
 /**
  * Helper class for building the [FenixTabCounterMenu].
@@ -73,9 +74,9 @@ class TabCounterView(
                 1
             }
         } else if (isPrivate) {
-            browserState.privateTabs.size
+            browserState.privateTabs.count { !it.isHidden() }
         } else {
-            browserState.normalTabs.size
+            browserState.normalTabs.count { !it.isHidden() }
         }
 
         tabCounter.setCountWithAnimation(tabCount)
