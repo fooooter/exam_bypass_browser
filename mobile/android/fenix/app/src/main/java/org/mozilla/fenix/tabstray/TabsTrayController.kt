@@ -52,6 +52,7 @@ import org.mozilla.fenix.tabstray.ext.getTabSessionState
 import org.mozilla.fenix.tabstray.ext.isActiveDownload
 import org.mozilla.fenix.tabstray.ext.isNormalTab
 import org.mozilla.fenix.tabstray.ext.isSelect
+import org.mozilla.fenix.tabstray.ext.toggleHidden
 import org.mozilla.fenix.utils.Settings
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.CoroutineContext
@@ -173,6 +174,8 @@ interface TabsTrayController : SyncedTabsController, InactiveTabsController, Tab
      * @return true if the button press was consumed.
      */
     fun handleBackPressed(): Boolean
+
+    fun handleTabHiding(tabId: String, source: String?)
 }
 
 /**
@@ -598,6 +601,13 @@ class DefaultTabsTrayController(
             return true
         }
         return false
+    }
+
+    override fun handleTabHiding(tabId: String, source: String?) {
+        val tab = browserStore.state.findTab(tabId)
+        tab?.let {
+            it.toggleHidden()
+        }
     }
 
     override fun handleInactiveTabClicked(tab: TabSessionState) {

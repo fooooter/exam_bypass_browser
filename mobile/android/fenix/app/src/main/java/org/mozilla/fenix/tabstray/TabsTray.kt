@@ -35,6 +35,7 @@ import mozilla.components.browser.storage.sync.TabEntry
 import mozilla.components.compose.base.Divider
 import mozilla.components.compose.base.annotation.LightDarkPreview
 import mozilla.components.lib.state.ext.observeAsState
+import org.mozilla.fenix.tabstray.ext.isHidden
 import org.mozilla.fenix.tabstray.ext.isNormalTab
 import org.mozilla.fenix.tabstray.syncedtabs.SyncedTabsListItem
 import org.mozilla.fenix.theme.FirefoxTheme
@@ -99,6 +100,7 @@ fun TabsTray(
     shouldShowInactiveTabsAutoCloseDialog: (Int) -> Boolean,
     onTabPageClick: (Page) -> Unit,
     onTabClose: (TabSessionState) -> Unit,
+    onTabHide: (TabSessionState) -> Unit,
     onTabMediaClick: (TabSessionState) -> Unit,
     onTabClick: (TabSessionState) -> Unit,
     onTabLongClick: (TabSessionState) -> Unit,
@@ -167,8 +169,8 @@ fun TabsTray(
         Box(modifier = Modifier.nestedScroll(rememberNestedScrollInteropConnection())) {
             TabsTrayBanner(
                 selectedPage = tabsTrayState.selectedPage,
-                normalTabCount = tabsTrayState.normalTabs.size + tabsTrayState.inactiveTabs.size,
-                privateTabCount = tabsTrayState.privateTabs.size,
+                normalTabCount = (tabsTrayState.normalTabs.size + tabsTrayState.inactiveTabs.size) - tabsTrayState.normalTabs.filter { it.isHidden() }.size,
+                privateTabCount = tabsTrayState.privateTabs.size - tabsTrayState.privateTabs.filter { it.isHidden() }.size,
                 syncedTabCount = syncedTabCount,
                 selectionMode = tabsTrayState.mode,
                 isInDebugMode = isInDebugMode,
@@ -216,6 +218,7 @@ fun TabsTray(
                             inactiveTabsExpanded = tabsTrayState.inactiveTabsExpanded,
                             displayTabsInGrid = displayTabsInGrid,
                             onTabClose = onTabClose,
+                            onTabHide = onTabHide,
                             onTabMediaClick = onTabMediaClick,
                             onTabClick = onTabClick,
                             onTabLongClick = onTabLongClick,
@@ -245,6 +248,7 @@ fun TabsTray(
                             selectionMode = tabsTrayState.mode,
                             displayTabsInGrid = displayTabsInGrid,
                             onTabClose = onTabClose,
+                            onTabHidden = onTabHide,
                             onTabMediaClick = onTabMediaClick,
                             onTabClick = onTabClick,
                             onTabLongClick = onTabLongClick,
@@ -384,6 +388,7 @@ private fun TabsTrayPreviewRoot(
                         tabsTrayStore.dispatch(TabsTrayAction.UpdatePrivateTabs(newTabs))
                     }
                 },
+                onTabHide = {},
                 onTabMediaClick = {},
                 onTabClick = { tab ->
                     when (tabsTrayStore.state.mode) {

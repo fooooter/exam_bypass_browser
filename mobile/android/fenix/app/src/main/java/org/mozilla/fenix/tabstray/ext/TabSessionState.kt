@@ -50,6 +50,14 @@ internal fun TabSessionState.isNormalTab(): Boolean {
     return !content.private
 }
 
+internal fun TabSessionState.toggleHidden() {
+    hidden = !hidden
+}
+
+internal fun TabSessionState.isHidden(): Boolean {
+    return hidden
+}
+
 /**
  * Returns a [String] for displaying a [TabSessionState]'s title or its url when a title is not available.
  */

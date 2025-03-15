@@ -60,6 +60,8 @@ interface TabsTrayInteractor :
      */
     fun onShareSelectedTabs()
 
+    fun onTabHidden(tab: TabSessionState, source: String?)
+
     /**
      * Invoked when a drag-drop operation with a tab is completed.
      *
@@ -165,6 +167,10 @@ class DefaultTabsTrayInteractor(
 
     override fun onTabClosed(tab: TabSessionState, source: String?) {
         controller.handleTabDeletion(tab.id, source)
+    }
+
+    override fun onTabHidden(tab: TabSessionState, source: String?) {
+        controller.handleTabHiding(tab.id, source)
     }
 
     override fun onTabSelected(tab: TabSessionState, source: String?) {

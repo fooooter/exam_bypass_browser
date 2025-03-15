@@ -87,6 +87,7 @@ fun TabListItem(
     shouldClickListen: Boolean = true,
     swipingEnabled: Boolean = true,
     onCloseClick: (tab: TabSessionState) -> Unit,
+    onHideClick: (tab: TabSessionState) -> Unit,
     onMediaClick: (tab: TabSessionState) -> Unit,
     onClick: (tab: TabSessionState) -> Unit,
     onLongClick: ((tab: TabSessionState) -> Unit)? = null,
@@ -123,6 +124,7 @@ fun TabListItem(
                 multiSelectionSelected = multiSelectionSelected,
                 shouldClickListen = shouldClickListen,
                 onCloseClick = onCloseClick,
+                onHideClick = onHideClick,
                 onMediaClick = onMediaClick,
                 onClick = onClick,
                 onLongClick = onLongClick,
@@ -157,6 +159,7 @@ fun TabListItem(
                 multiSelectionSelected = multiSelectionSelected,
                 shouldClickListen = shouldClickListen,
                 onCloseClick = onCloseClick,
+                onHideClick = onHideClick,
                 onMediaClick = onMediaClick,
                 onClick = onClick,
                 onLongClick = onLongClick,
@@ -168,7 +171,7 @@ fun TabListItem(
 @OptIn(ExperimentalFoundationApi::class)
 @Suppress("LongMethod", "LongParameterList")
 @Composable
-private fun TabContent(
+fun TabContent(
     tab: TabSessionState,
     thumbnailSize: Int,
     isSelected: Boolean,
@@ -347,6 +350,7 @@ private fun TabListItemPreview() {
             thumbnailSize = 108,
             onCloseClick = {},
             onMediaClick = {},
+            onHideClick = {},
             onClick = {},
         )
     }
@@ -361,6 +365,7 @@ private fun SelectedTabListItemPreview() {
             thumbnailSize = 108,
             onCloseClick = {},
             onMediaClick = {},
+            onHideClick = {},
             onClick = {},
             multiSelectionEnabled = true,
             multiSelectionSelected = true,

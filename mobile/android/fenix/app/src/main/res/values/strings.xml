@@ -1272,6 +1272,8 @@
     <string name="close_tab">Close tab</string>
     <!-- Content description (not visible, for screen readers etc.): Close tab <title> button. %s is the tab title -->
     <string name="close_tab_title">Close tab %s</string>
+    <!-- Content description (not visible, for screen readers etc.): Hide tab <title> button. %s is the tab title -->
+    <string name="hide_tab_title">Hide tab %s</string>
     <!-- Content description (not visible, for screen readers etc.): Opens the open tabs menu when pressed -->
     <string name="open_tabs_menu">Open tabs menu</string>
     <!-- Open tabs menu item to save tabs to collection -->

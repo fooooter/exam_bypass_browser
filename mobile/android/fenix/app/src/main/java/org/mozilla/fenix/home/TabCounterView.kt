@@ -67,7 +67,11 @@ class TabCounterView(
     fun update(browserState: BrowserState) {
         val isPrivate = browsingModeManager.mode.isPrivate
         val tabCount = if (context.settings().forgeTabCounter) {
-            1
+            if (browserState.normalTabs.isEmpty()) {
+                0
+            } else {
+                1
+            }
         } else if (isPrivate) {
             browserState.privateTabs.size
         } else {

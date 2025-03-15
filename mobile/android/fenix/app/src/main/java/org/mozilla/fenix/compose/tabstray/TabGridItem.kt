@@ -100,6 +100,7 @@ fun TabGridItem(
     swipeState: SwipeToDismissState,
     swipeState2: SwipeToDismissState2,
     onCloseClick: (tab: TabSessionState) -> Unit,
+    onHideClick: (tab: TabSessionState) -> Unit,
     onMediaClick: (tab: TabSessionState) -> Unit,
     onClick: (tab: TabSessionState) -> Unit,
     onLongClick: ((tab: TabSessionState) -> Unit)? = null,
@@ -120,6 +121,7 @@ fun TabGridItem(
                 multiSelectionSelected = multiSelectionSelected,
                 shouldClickListen = shouldClickListen,
                 onCloseClick = onCloseClick,
+                onHideClick = onHideClick,
                 onMediaClick = onMediaClick,
                 onClick = onClick,
                 onLongClick = onLongClick,
@@ -141,6 +143,7 @@ fun TabGridItem(
                 multiSelectionSelected = multiSelectionSelected,
                 shouldClickListen = shouldClickListen,
                 onCloseClick = onCloseClick,
+                onHideClick = onHideClick,
                 onMediaClick = onMediaClick,
                 onClick = onClick,
                 onLongClick = onLongClick,
@@ -152,7 +155,7 @@ fun TabGridItem(
 @OptIn(ExperimentalFoundationApi::class)
 @Suppress("LongMethod")
 @Composable
-private fun TabContent(
+fun TabContent(
     tab: TabSessionState,
     thumbnailSize: Int,
     isSelected: Boolean = false,
@@ -160,6 +163,7 @@ private fun TabContent(
     multiSelectionSelected: Boolean = false,
     shouldClickListen: Boolean = true,
     onCloseClick: (tab: TabSessionState) -> Unit,
+    onHideClick: (tab: TabSessionState) -> Unit,
     onMediaClick: (tab: TabSessionState) -> Unit,
     onClick: (tab: TabSessionState) -> Unit,
     onLongClick: ((tab: TabSessionState) -> Unit)? = null,
@@ -278,6 +282,24 @@ private fun TabContent(
                                 tint = FirefoxTheme.colors.iconPrimary,
                             )
                         }
+
+                        IconButton(
+                            modifier = Modifier
+                                .size(24.dp)
+                                .align(Alignment.CenterVertically),
+                            onClick = {
+                                onHideClick(tab)
+                            },
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.mozac_ic_private_mode_circle_fill_20),
+                                contentDescription = stringResource(
+                                    id = R.string.hide_tab_title,
+                                    tab.toDisplayTitle(),
+                                ),
+                                tint = FirefoxTheme.colors.iconPrimary,
+                            )
+                        }
                     }
                 }
 
@@ -375,6 +397,7 @@ private fun TabGridItemPreview() {
             thumbnailSize = 108,
             onCloseClick = {},
             onMediaClick = {},
+            onHideClick = {},
             onClick = {},
         )
     }
@@ -391,6 +414,7 @@ private fun TabGridItemSelectedPreview() {
             onCloseClick = {},
             onMediaClick = {},
             onClick = {},
+            onHideClick = {},
             onLongClick = {},
         )
     }
@@ -408,6 +432,7 @@ private fun TabGridItemMultiSelectedPreview() {
             onCloseClick = {},
             onMediaClick = {},
             onClick = {},
+            onHideClick = {},
             onLongClick = {},
         )
     }

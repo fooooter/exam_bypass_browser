@@ -198,7 +198,11 @@ class DefaultToolbarIntegration(
         )
 
         val tabCount = if (context.settings().forgeTabCounter) {
-            1
+            if (store.state.normalTabs.isEmpty()) {
+                0
+            } else {
+                1
+            }
         } else if (isPrivate) {
             store.state.privateTabs.size
         } else {

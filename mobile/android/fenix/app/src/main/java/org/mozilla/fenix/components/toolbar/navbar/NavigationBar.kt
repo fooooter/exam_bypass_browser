@@ -53,6 +53,7 @@ import org.mozilla.fenix.compose.IconButton
 import org.mozilla.fenix.compose.LongPressIconButton
 import org.mozilla.fenix.compose.utils.KeyboardState
 import org.mozilla.fenix.compose.utils.keyboardAsState
+import org.mozilla.fenix.ext.settings
 import org.mozilla.fenix.perf.MarkersFragmentLifecycleCallbacks
 import org.mozilla.fenix.search.SearchDialogFragment
 import org.mozilla.fenix.theme.FirefoxTheme
@@ -111,7 +112,11 @@ fun BrowserNavBar(
     val forgeTabCounter = components.settings.forgeTabCounter
     val tabCount = browserStore.observeAsState(initialValue = 0) { browserState ->
         if (forgeTabCounter) {
-            1
+            if (browserState.normalTabs.isEmpty()) {
+                0
+            } else {
+                1
+            }
         } else if (isPrivateMode) {
             browserState.privateTabs.size
         } else {
@@ -207,7 +212,11 @@ fun HomeNavBar(
     val forgeTabCounter = components.settings.forgeTabCounter
     val tabCount = browserStore.observeAsState(initialValue = 0) { browserState ->
         if (forgeTabCounter) {
-            1
+            if (browserState.normalTabs.isEmpty()) {
+                0
+            } else {
+                1
+            }
         } else if (isPrivateMode) {
             browserState.privateTabs.size
         } else {

@@ -232,6 +232,9 @@ class TabsTrayFragment : AppCompatDialogFragment() {
                     onTabClose = { tab ->
                         tabsTrayInteractor.onTabClosed(tab, TABS_TRAY_FEATURE_NAME)
                     },
+                    onTabHide = { tab ->
+                        tabsTrayInteractor.onTabHidden(tab, TABS_TRAY_FEATURE_NAME)
+                    },
                     onTabMediaClick = tabsTrayInteractor::onMediaClicked,
                     onTabClick = { tab ->
                         run outer@{

@@ -54,6 +54,7 @@ data class TabSessionState(
     val lastMediaAccessState: LastMediaAccessState = LastMediaAccessState(),
     val readerState: ReaderState = ReaderState(),
     val historyMetadata: HistoryMetadataKey? = null,
+    var hidden: Boolean = false,
 ) : SessionState {
 
     override fun createCopy(

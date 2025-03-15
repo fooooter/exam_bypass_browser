@@ -49,6 +49,7 @@ import org.mozilla.fenix.tabstray.browser.compose.createListReorderState
 import org.mozilla.fenix.tabstray.browser.compose.detectGridPressAndDragGestures
 import org.mozilla.fenix.tabstray.browser.compose.detectListPressAndDrag
 import org.mozilla.fenix.tabstray.ext.MIN_COLUMN_WIDTH_DP
+import org.mozilla.fenix.tabstray.ext.isHidden
 import org.mozilla.fenix.tabstray.ext.numberOfGridColumns
 import org.mozilla.fenix.theme.FirefoxTheme
 import kotlin.math.max
@@ -85,6 +86,7 @@ fun TabLayout(
     selectionMode: TabsTrayState.Mode,
     modifier: Modifier = Modifier,
     onTabClose: (TabSessionState) -> Unit,
+    onTabHide: (TabSessionState) -> Unit,
     onTabMediaClick: (TabSessionState) -> Unit,
     onTabClick: (TabSessionState) -> Unit,
     onTabLongClick: (TabSessionState) -> Unit,
@@ -110,6 +112,7 @@ fun TabLayout(
             selectionMode = selectionMode,
             modifier = modifier,
             onTabClose = onTabClose,
+            onTabHide = onTabHide,
             onTabMediaClick = onTabMediaClick,
             onTabClick = onTabClick,
             onTabLongClick = onTabLongClick,
@@ -125,6 +128,7 @@ fun TabLayout(
             selectionMode = selectionMode,
             modifier = modifier,
             onTabClose = onTabClose,
+            onTabHide = onTabHide,
             onTabMediaClick = onTabMediaClick,
             onTabClick = onTabClick,
             onTabLongClick = onTabLongClick,
@@ -145,6 +149,7 @@ private fun TabGrid(
     selectionMode: TabsTrayState.Mode,
     modifier: Modifier = Modifier,
     onTabClose: (TabSessionState) -> Unit,
+    onTabHide: (TabSessionState) -> Unit,
     onTabMediaClick: (TabSessionState) -> Unit,
     onTabClick: (TabSessionState) -> Unit,
     onTabLongClick: (TabSessionState) -> Unit,
@@ -202,7 +207,7 @@ private fun TabGrid(
         }
 
         itemsIndexed(
-            items = tabs,
+            items = tabs.filter { !it.isHidden() },
             key = { _, tab -> tab.id },
         ) { index, tab ->
             val decayAnimationSpec: DecayAnimationSpec<Float> = rememberSplineBasedDecay()
@@ -243,6 +248,7 @@ private fun TabGrid(
                     swipeState = swipeState,
                     swipeState2 = swipeState2,
                     onCloseClick = onTabClose,
+                    onHideClick = onTabHide,
                     onMediaClick = onTabMediaClick,
                     onClick = onTabClick,
                 )
@@ -265,6 +271,7 @@ private fun TabList(
     selectionMode: TabsTrayState.Mode,
     modifier: Modifier = Modifier,
     onTabClose: (TabSessionState) -> Unit,
+    onTabHide: (TabSessionState) -> Unit,
     onTabMediaClick: (TabSessionState) -> Unit,
     onTabClick: (TabSessionState) -> Unit,
     onTabLongClick: (TabSessionState) -> Unit,
@@ -320,7 +327,7 @@ private fun TabList(
         }
 
         itemsIndexed(
-            items = tabs,
+            items = tabs.filter { !it.isHidden() },
             key = { _, tab -> tab.id },
         ) { index, tab ->
             DragItemContainer(
@@ -337,6 +344,7 @@ private fun TabList(
                     shouldClickListen = reorderState.draggingItemKey != tab.id,
                     swipingEnabled = !state.isScrollInProgress,
                     onCloseClick = onTabClose,
+                    onHideClick = onTabHide,
                     onMediaClick = onTabMediaClick,
                     onClick = onTabClick,
                 )
@@ -366,6 +374,7 @@ private fun TabListPreview() {
                 selectionMode = TabsTrayState.Mode.Normal,
                 displayTabsInGrid = false,
                 onTabClose = tabs::remove,
+                onTabHide = {},
                 onTabMediaClick = {},
                 onTabClick = {},
                 onTabLongClick = {},
@@ -393,6 +402,7 @@ private fun TabGridPreview() {
                 selectionMode = TabsTrayState.Mode.Normal,
                 displayTabsInGrid = true,
                 onTabClose = tabs::remove,
+                onTabHide = {},
                 onTabMediaClick = {},
                 onTabClick = {},
                 onTabLongClick = {},
@@ -422,6 +432,7 @@ private fun TabGridSmallPreview() {
                 selectionMode = TabsTrayState.Mode.Normal,
                 displayTabsInGrid = true,
                 onTabClose = tabs::remove,
+                onTabHide = {},
                 onTabMediaClick = {},
                 onTabClick = {},
                 onTabLongClick = {},
@@ -451,6 +462,7 @@ private fun TabGridMultiSelectPreview() {
                 selectionMode = TabsTrayState.Mode.Select(selectedTabs.toSet()),
                 displayTabsInGrid = false,
                 onTabClose = {},
+                onTabHide = {},
                 onTabMediaClick = {},
                 onTabClick = { tab ->
                     if (selectedTabs.contains(tab)) {
