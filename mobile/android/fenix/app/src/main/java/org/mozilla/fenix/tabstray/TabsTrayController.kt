@@ -226,6 +226,7 @@ class DefaultTabsTrayController(
     private val showUndoSnackbarForTab: (Boolean) -> Unit,
     private val showUndoSnackbarForInactiveTab: (Int) -> Unit,
     private val showUndoSnackbarForSyncedTab: (CloseTabsUseCases.UndoableOperation) -> Unit,
+    private val showUndoSnackbarForHiddenTab: (TabSessionState) -> Unit,
     internal val showCancelledDownloadWarning: (downloadCount: Int, tabId: String?, source: String?) -> Unit,
     private val showBookmarkSnackbar: (tabSize: Int, parentFolderTitle: String?) -> Unit,
     private val showCollectionSnackbar: (
@@ -607,6 +608,7 @@ class DefaultTabsTrayController(
         val tab = browserStore.state.findTab(tabId)
         tab?.let {
             it.toggleHidden()
+            showUndoSnackbarForHiddenTab(it)
         }
     }
 

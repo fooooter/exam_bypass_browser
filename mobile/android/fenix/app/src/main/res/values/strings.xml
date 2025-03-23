@@ -1760,6 +1760,10 @@
     <string name="snackbar_collection_renamed">Collection renamed</string>
     <!-- Text shown in snackbar when user closes a tab -->
     <string name="snackbar_tab_closed">Tab closed</string>
+    <!-- Text shown in snackbar when user hides a tab -->
+    <string name="snackbar_tab_hidden">Tab hidden</string>
+    <!-- Text shown in snackbar when user unhides a tab -->
+    <string name="snackbar_tab_unhidden">Tab unhidden</string>
     <!-- Text shown in snackbar when user closes all tabs -->
     <string name="snackbar_tabs_closed">Tabs closed</string>
     <!-- Text shown in snackbar when user closes multiple inactive tabs. %1$s will be replaced with the number of tabs closed. -->

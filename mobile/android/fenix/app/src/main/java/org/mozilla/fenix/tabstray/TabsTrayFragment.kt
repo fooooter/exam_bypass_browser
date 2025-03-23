@@ -52,6 +52,8 @@ import org.mozilla.fenix.ext.settings
 import org.mozilla.fenix.home.HomeScreenViewModel
 import org.mozilla.fenix.share.ShareFragment
 import org.mozilla.fenix.tabstray.browser.TabSorter
+import org.mozilla.fenix.tabstray.ext.isHidden
+import org.mozilla.fenix.tabstray.ext.toggleHidden
 import org.mozilla.fenix.tabstray.syncedtabs.SyncedTabsIntegration
 import org.mozilla.fenix.theme.FirefoxTheme
 import org.mozilla.fenix.theme.Theme
@@ -167,6 +169,7 @@ class TabsTrayFragment : AppCompatDialogFragment() {
             showUndoSnackbarForTab = ::showUndoSnackbarForTab,
             showUndoSnackbarForInactiveTab = ::showUndoSnackbarForInactiveTab,
             showUndoSnackbarForSyncedTab = ::showUndoSnackbarForSyncedTab,
+            showUndoSnackbarForHiddenTab = ::showUndoSnackbarForHiddenTab,
             showCancelledDownloadWarning = ::showCancelledDownloadWarning,
             showCollectionSnackbar = ::showCollectionSnackbar,
             showBookmarkSnackbar = ::showBookmarkSnackbar,
@@ -557,6 +560,24 @@ class TabsTrayFragment : AppCompatDialogFragment() {
             onCancel = {
                 requireComponents.useCases.tabsUseCases.undo.invoke()
                 tabsTrayStore.dispatch(TabsTrayAction.PageSelected(Page.positionToPage(Page.NormalTabs.ordinal)))
+            },
+            operation = { },
+            elevation = ELEVATION,
+            anchorView = getSnackbarAnchor(),
+        )
+    }
+
+    private fun showUndoSnackbarForHiddenTab(tab: TabSessionState) {
+        lifecycleScope.allowUndo(
+            view = requireView(),
+            message = if (tab.isHidden()) {
+                getString(R.string.snackbar_tab_hidden)
+            } else {
+                getString(R.string.snackbar_tab_unhidden)
+            },
+            undoActionTitle = getString(R.string.snackbar_deleted_undo),
+            onCancel = {
+                tab.toggleHidden()
             },
             operation = { },
             elevation = ELEVATION,
