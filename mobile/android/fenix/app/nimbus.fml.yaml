@@ -48,8 +48,8 @@ features:
             "jump-back-in": true,
             "bookmarks": true,
             "recent-explorations": true,
-            "pocket": true,
-            "pocket-sponsored-stories": true,
+            "pocket": false,
+            "pocket-sponsored-stories": false,
           }
     defaults:
       - channel: nightly
@@ -462,6 +462,9 @@ features:
       - channel: nightly
         value:
           enabled: true
+      - channel: release
+        value:
+          enabled: true
 
   remote-tab-management:
     description: >
@@ -504,7 +507,7 @@ features:
         description: >
           Suggest domains from the shipped domain list.
         type: Boolean
-        default: true
+        default: false
     defaults:
       - channel: nightly
         value:
